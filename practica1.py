@@ -15,18 +15,20 @@ class URL_shortener(webapp.webApp):
         try:
             method = request.split()[0]
             resource = request.split()[1]
+            url = request.split()[-1]
+            url = url.split("=")[-1]
             print("Method: " + method)
             print("Resource: " + resource)
-            return(method, resource)
+            print("url: " + url)
+            return(method, resource, url)
         except:
             return("", "")
 
     def process(self, parsedRequest):
-        print("Parsedrequest[0]" + parsedRequest[0])
         if parsedRequest[0] == "GET":
             if parsedRequest[1] == "/":
                 return ("200 OK", "<html><body><h1>" +
-	                              """<form>
+	                              """<form method=post>
 	                                 URL:<br>
 	                                 <input type="text" name="URL" value="www.realmadrid.com"><br>
 	                                 <input type="submit" value="Submit">
@@ -36,7 +38,8 @@ class URL_shortener(webapp.webApp):
                 return("404 NOT Found", "<html><body><h1> Resource NOT Found</h1>" +
 	                                    "<p>Usage: localhost:1234/</p></body></html>")
         elif parsedRequest[0] == "POST":
-            print("Parsedrequest[0]" + parsedRequest[0])
+            return("200 OK", "<html><body><h1>Shortened URL: </h1>" +
+                             parsedRequest[2] + "</body></html>")
         else:
             return("404 NOT Found", "<html><body><h1> Resource NOT Found</h1>" +
                                     "<p>Usage: localhost:1234/</p></body></html>")
