@@ -1,0 +1,2 @@
+1) ¿Está bien subdividido y estructurado mi código? Las respuestas HTTP están bien ubicadas o mejor sacarlas en otra variable?
+2) ¿Qué puedo probar para comprobar que no me dejo ningún fallo o hueco sin tratar?
