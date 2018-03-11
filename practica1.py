@@ -34,7 +34,9 @@ class URL_shortener(webapp.webApp):
 	                               "</body></html>")
             else:
                 return("404 NOT Found", "<html><body><h1> Resource NOT Found</h1>" +
-	                                           "<p>Usage: localhost:1234/</p></body></html>")
+	                                    "<p>Usage: localhost:1234/</p></body></html>")
+        elif parsedRequest[0] == "POST":
+            print("Parsedrequest[0]" + parsedRequest[0])
         else:
             return("404 NOT Found", "<html><body><h1> Resource NOT Found</h1>" +
                                     "<p>Usage: localhost:1234/</p></body></html>")
