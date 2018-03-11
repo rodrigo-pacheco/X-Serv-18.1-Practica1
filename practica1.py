@@ -79,10 +79,13 @@ class URL_shortener(webapp.webApp):
                                      current_url_links() +
 	                               "</body></html>")
             elif its_kown_resource(parsedRequest[1]):
-                return("200 OK", "<html><body><h1>HOLAAAAAAAAA</h1></body></html>")
+                return("301 Moved Permanetly", "<html><body>" +
+                                               "<head><meta http-equiv=\"refresh\" content=\"0;URL=" +
+                                               NUMBER_URL[its_kown_resource(parsedRequest[1])] +
+                                               "\"/></head></body></html>")
             else:
                 return("404 NOT Found", "<html><body><h1> Resource NOT Found</h1>" +
-	                                    "<p>Go to <a href=http://localhost:1234/> home page</a></h1>" + 
+	                                    "<p>Go to <a href=http://localhost:1234/> home page</a></h1>" +
                                         " to check URLs already shortened</p></body></html>")
         elif parsedRequest[0] == "POST":
             checked = check_url(parsedRequest[2])
