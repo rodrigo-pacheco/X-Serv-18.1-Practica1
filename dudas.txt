@@ -1,2 +1,5 @@
 1) ¿Está bien subdividido y estructurado mi código? Las respuestas HTTP están bien ubicadas o mejor sacarlas en otra variable?
 2) ¿Qué puedo probar para comprobar que no me dejo ningún fallo o hueco sin tratar?
+3) ¿Está bien el rango que he metido de detectar números? ¿Hay una forma mejor de hacerlo?
+4) ¿Por qué tarda tanto en la redirección de la página cuando añado una URL? También en Resource not found
+5) Si me piden localhost:1234/1/jamon/1574916 entiendo que tengo que servirle el contenido de /1 si lo hubiera

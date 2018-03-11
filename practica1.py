@@ -16,6 +16,16 @@ URL_NUMBER = {}
 NUMBER_URL = {}
 LAST_URL = 0
 
+def its_kown_resource(input_str):
+    try:
+        input_number = int(input_str.split("/")[1])
+        if input_number in NUMBER_URL:
+            return input_number
+        else:
+            return 0    # Number not in dictionary
+    except:
+        return 0        # Not even a number
+
 def current_url_links():
     global URL_NUMBER, NUMBER_URL, LAST_URL
     html_code = "<p><h2>Shortened URLS:</h2></p>"
@@ -68,11 +78,12 @@ class URL_shortener(webapp.webApp):
 	                                 </form>""" +
                                      current_url_links() +
 	                               "</body></html>")
-            elif int(parsedRequest[1].split("/")[1]) in range (1, 999999999999999):
+            elif its_kown_resource(parsedRequest[1]):
                 return("200 OK", "<html><body><h1>HOLAAAAAAAAA</h1></body></html>")
             else:
                 return("404 NOT Found", "<html><body><h1> Resource NOT Found</h1>" +
-	                                    "<p>Go to localhost:1234/ to check URLs already shortened</p></body></html>")
+	                                    "<p>Go to <a href=http://localhost:1234/> home page</a></h1>" + 
+                                        " to check URLs already shortened</p></body></html>")
         elif parsedRequest[0] == "POST":
             checked = check_url(parsedRequest[2])
             added = add_url(checked)
