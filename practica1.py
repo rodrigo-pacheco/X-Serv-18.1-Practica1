@@ -68,9 +68,11 @@ class URL_shortener(webapp.webApp):
 	                                 </form>""" +
                                      current_url_links() +
 	                               "</body></html>")
+            elif int(parsedRequest[1].split("/")[1]) in range (1, 999999999999999):
+                return("200 OK", "<html><body><h1>HOLAAAAAAAAA</h1></body></html>")
             else:
                 return("404 NOT Found", "<html><body><h1> Resource NOT Found</h1>" +
-	                                    "<p>Usage: localhost:1234/</p></body></html>")
+	                                    "<p>Go to localhost:1234/ to check URLs already shortened</p></body></html>")
         elif parsedRequest[0] == "POST":
             checked = check_url(parsedRequest[2])
             added = add_url(checked)
