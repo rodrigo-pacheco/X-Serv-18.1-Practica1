@@ -9,7 +9,8 @@ SAT subject (Universidad Rey Juan Carlos)
 
 
 import webapp
-import html
+from urllib.parse import unquote
+
 
 URL_NUMBER = {}
 NUMBER_URL = {}
@@ -17,7 +18,7 @@ LAST_URL = 0
 
 
 def check_url(url):
-    print("URL--" + html.unescape(url))
+    url = unquote(url)
     if url.startswith("http://") or url.startswith("https://"):
         return(url)
     else:
@@ -49,7 +50,7 @@ class URL_shortener(webapp.webApp):
         if parsedRequest[0] == "GET":
             if parsedRequest[1] == "/":
                 return ("200 OK", "<html><body><h1>" +
-	                              """<form method=post>
+	                              """<form method=post accept-charset="utf-8">
 	                                 URL:<br>
 	                                 <input type="text" name="URL" value="www.realmadrid.com"><br>
 	                                 <input type="submit" value="Submit">
@@ -64,6 +65,7 @@ class URL_shortener(webapp.webApp):
             return("200 OK", "<html><body><h1>Shortened URL: </h1>" +
                              "<a href=" + added[0] + ">" + added[1] + "</a></h1>" + " -- "
                              "<a href=" + added[0] + ">" + added[0] + "</a></h1>" +
+                             "<p><a href=localhost:1234/>Back to start page</a></h1></p>" +
                              "</body></html>")
         else:
             return("404 NOT Found", "<html><body><h1> Resource NOT Found</h1>" +
