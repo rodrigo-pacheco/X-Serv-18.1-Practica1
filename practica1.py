@@ -16,6 +16,17 @@ URL_NUMBER = {}
 NUMBER_URL = {}
 LAST_URL = 0
 
+def current_url_links():
+    global URL_NUMBER, NUMBER_URL, LAST_URL
+    html_code = "<p><h2>Shortened URLS:</h2></p>"
+    if LAST_URL > 0:
+        for url in URL_NUMBER:
+            html_code += ("<p><a href=" + url + ">" + str(URL_NUMBER[url]) + "</a>" + " -- " +
+                             "<a href=" + url + ">" + url + "</a></p>")
+    else:
+        html_code += "Not any URL shortened yet. What are you waiting for?"
+    return(html_code)
+
 
 def check_url(url):
     url = unquote(url)
@@ -55,6 +66,7 @@ class URL_shortener(webapp.webApp):
 	                                 <input type="text" name="URL" value="www.realmadrid.com"><br>
 	                                 <input type="submit" value="Submit">
 	                                 </form>""" +
+                                     current_url_links() +
 	                               "</body></html>")
             else:
                 return("404 NOT Found", "<html><body><h1> Resource NOT Found</h1>" +
@@ -65,7 +77,7 @@ class URL_shortener(webapp.webApp):
             return("200 OK", "<html><body><h1>Shortened URL: </h1>" +
                              "<a href=" + added[0] + ">" + added[1] + "</a></h1>" + " -- "
                              "<a href=" + added[0] + ">" + added[0] + "</a></h1>" +
-                             "<p><a href=localhost:1234/>Back to start page</a></h1></p>" +
+                             "<p><a href=http://localhost:1234/>Back to start page</a></h1></p>" +
                              "</body></html>")
         else:
             return("404 NOT Found", "<html><body><h1> Resource NOT Found</h1>" +
