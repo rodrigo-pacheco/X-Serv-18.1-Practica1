@@ -3,18 +3,27 @@
 Simple HTTP Server: shortenrs URLs
 
 Rodrigo Pacheco Martinez-Atienza
-r.pachecom @ urjc.es
+r.pachecom @ alumnos.urjc.es
 SAT subject (Universidad Rey Juan Carlos)
 """
 
 
 import webapp
+import os.path
 from urllib.parse import unquote
 
 
 URL_NUMBER = {}
 NUMBER_URL = {}
 LAST_URL = 0
+FILE_PATH = "./init_urls.txt"
+
+def save_in_file(number, url):
+    try:
+        file = open(FILE_PATH, "r")
+        file.wite(str(number) + " " + url)
+    except:
+        exit("Could not open init_urls.txt when it was suppoused to be created")
 
 def its_kown_resource(input_str):
     try:
@@ -45,7 +54,7 @@ def check_url(url):
     else:
         return("http://" + url)
 
-def add_url(url):
+def add_url(url, already_added):
     global URL_NUMBER, NUMBER_URL, LAST_URL
     if url in URL_NUMBER:
         return(url, str(URL_NUMBER[url]))
@@ -53,6 +62,8 @@ def add_url(url):
         LAST_URL = LAST_URL + 1
         URL_NUMBER[url] = LAST_URL
         NUMBER_URL[LAST_URL] = url
+        if already_added:                   # 0 When not in .txt file, other number when in file
+            save_in_file(LAST_URL, url)
         return(url, str(LAST_URL))
 
 
@@ -89,7 +100,7 @@ class URL_shortener(webapp.webApp):
                                         " to check URLs already shortened</p></body></html>")
         elif parsedRequest[0] == "POST":
             checked = check_url(parsedRequest[2])
-            added = add_url(checked)
+            added = add_url(checked, 0)         # 0 because URL not in .txt file yet
             return("200 OK", "<html><body><h1>Shortened URL: </h1>" +
                              "<a href=" + added[0] + ">" + added[1] + "</a></h1>" + " -- "
                              "<a href=" + added[0] + ">" + added[0] + "</a></h1>" +
@@ -100,4 +111,15 @@ class URL_shortener(webapp.webApp):
                                     "<p>Usage: localhost:1234/</p></body></html>")
 
 if __name__ == "__main__":
+    global LAST_URL
+    if os.path.exists(FILE_PATH):
+        file = open(FILE_PATH, "r")
+        for line in file:
+            try:
+                LAST_URL = int(line.split()[0])
+                add_url(line.split()[1], 1)     # 1 Because URL already in .txt file
+            except:
+                exit("init_urls.txt format not supported. Use number url")
+    else:
+        open(FILE_PATH, "w+")
     myApp = URL_shortener("localhost", 1234)

@@ -3,3 +3,5 @@
 3) ¿Está bien el rango que he metido de detectar números? ¿Hay una forma mejor de hacerlo?
 4) ¿Por qué tarda tanto en la redirección de la página cuando añado una URL? También en Resource not found
 5) Si me piden localhost:1234/1/jamon/1574916 entiendo que tengo que servirle el contenido de /1 si lo hubiera
+6) ¿Hago bien la redirección?
+7) ¿El exit del save_in_file está bien?
