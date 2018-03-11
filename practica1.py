@@ -10,11 +10,25 @@ SAT subject (Universidad Rey Juan Carlos)
 
 import webapp
 
+URL_NUMBER = {}
+NUMBER_URL = {}
+LAST_URL = 0
+
+
 def check_url(url):
+    print("URL--" + url)
     if url.startswith("http://") or url.startswith("https://"):
         return(url)
     else:
         return("http://" + url)
+
+def add_url(url):
+    global URL_NUMBER, NUMBER_URL, LAST_URL
+    LAST_URL = LAST_URL + 1
+    URL_NUMBER[url] = LAST_URL
+    NUMBER_URL[LAST_URL] = url
+    return(url, str(LAST_URL))
+
 
 class URL_shortener(webapp.webApp):
     def parse(self, request):
@@ -42,9 +56,11 @@ class URL_shortener(webapp.webApp):
 	                                    "<p>Usage: localhost:1234/</p></body></html>")
         elif parsedRequest[0] == "POST":
             checked = check_url(parsedRequest[2])
-            # added = add_url(checked)
+            added = add_url(checked)
             return("200 OK", "<html><body><h1>Shortened URL: </h1>" +
-                             checked + "</body></html>")
+                             "<a href=" + added[0] + ">" + added[1] + "</a></h1>" + " -- "
+                             "<a href=" + added[0] + ">" + added[0] + "</a></h1>" +
+                             "</body></html>")
         else:
             return("404 NOT Found", "<html><body><h1> Resource NOT Found</h1>" +
                                     "<p>Usage: localhost:1234/</p></body></html>")
