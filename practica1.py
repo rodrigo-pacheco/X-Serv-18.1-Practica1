@@ -20,8 +20,8 @@ FILE_PATH = "./init_urls.txt"
 
 def save_in_file(number, url):
     try:
-        file = open(FILE_PATH, "r")
-        file.wite(str(number) + " " + url)
+        file = open(FILE_PATH, "a")
+        file.write(str(number) + " " + url)
     except:
         exit("Could not open init_urls.txt when it was suppoused to be created")
 
@@ -36,7 +36,6 @@ def its_kown_resource(input_str):
         return 0        # Not even a number
 
 def current_url_links():
-    global URL_NUMBER, NUMBER_URL, LAST_URL
     html_code = "<p><h2>Shortened URLS:</h2></p>"
     if LAST_URL > 0:
         for url in URL_NUMBER:
@@ -62,7 +61,7 @@ def add_url(url, already_added):
         LAST_URL = LAST_URL + 1
         URL_NUMBER[url] = LAST_URL
         NUMBER_URL[LAST_URL] = url
-        if already_added:                   # 0 When not in .txt file, other number when in file
+        if not(already_added):                   # 0 When not in .txt file, other number when in file
             save_in_file(LAST_URL, url)
         return(url, str(LAST_URL))
 
@@ -116,10 +115,14 @@ if __name__ == "__main__":
         file = open(FILE_PATH, "r")
         for line in file:
             try:
-                LAST_URL = int(line.split()[0])
-                add_url(line.split()[1], 1)     # 1 Because URL already in .txt file
+                LAST_URL = int(line.split()[0]) - 1 # -1 because in add_url number is increased by 1
+                add_url(line.split()[1], 1)         # 1 Because URL already in .txt file
             except:
                 exit("init_urls.txt format not supported. Use number url")
     else:
-        open(FILE_PATH, "w+")
+        file = open(FILE_PATH, "w+")
+        os.chmod(FILE_PATH, 0o777)
+
+    file.close
+    print(URL_NUMBER)
     myApp = URL_shortener("localhost", 1234)
