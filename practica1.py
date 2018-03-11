@@ -9,6 +9,7 @@ SAT subject (Universidad Rey Juan Carlos)
 
 
 import webapp
+import html
 
 URL_NUMBER = {}
 NUMBER_URL = {}
@@ -16,7 +17,7 @@ LAST_URL = 0
 
 
 def check_url(url):
-    print("URL--" + url)
+    print("URL--" + html.unescape(url))
     if url.startswith("http://") or url.startswith("https://"):
         return(url)
     else:
@@ -24,10 +25,13 @@ def check_url(url):
 
 def add_url(url):
     global URL_NUMBER, NUMBER_URL, LAST_URL
-    LAST_URL = LAST_URL + 1
-    URL_NUMBER[url] = LAST_URL
-    NUMBER_URL[LAST_URL] = url
-    return(url, str(LAST_URL))
+    if url in URL_NUMBER:
+        return(url, str(URL_NUMBER[url]))
+    else:
+        LAST_URL = LAST_URL + 1
+        URL_NUMBER[url] = LAST_URL
+        NUMBER_URL[LAST_URL] = url
+        return(url, str(LAST_URL))
 
 
 class URL_shortener(webapp.webApp):
