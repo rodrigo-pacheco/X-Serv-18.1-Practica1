@@ -38,9 +38,12 @@ def its_kown_resource(input_str):
 def current_url_links():
     html_code = "<p><h2>Shortened URLS:</h2></p>"
     if LAST_URL > 0:
-        for url in URL_NUMBER:
-            html_code += ("<p><a href=" + url + ">" + str(URL_NUMBER[url]) + "</a>" + " -- " +
-                             "<a href=" + url + ">" + url + "</a></p>")
+        for i in range(1,999999):
+            print(i)
+            if i in NUMBER_URL:
+                for url in URL_NUMBER:
+                    html_code += ("<p><a href=" + url + ">" + str(URL_NUMBER[url]) + "</a>" + " -- " +
+                                     "<a href=" + url + ">" + url + "</a></p>")
     else:
         html_code += "Not any URL shortened yet. What are you waiting for?"
     return(html_code)
