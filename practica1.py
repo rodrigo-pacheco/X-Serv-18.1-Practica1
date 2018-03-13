@@ -21,7 +21,7 @@ FILE_PATH = "./init_urls.txt"
 def save_in_file(number, url):
     try:
         file = open(FILE_PATH, "a")
-        file.write(str(number) + " " + url)
+        file.write(str(number) + " " + url + "\r\n")
     except:
         exit("Could not open init_urls.txt when it was suppoused to be created")
 
@@ -38,12 +38,9 @@ def its_kown_resource(input_str):
 def current_url_links():
     html_code = "<p><h2>Shortened URLS:</h2></p>"
     if LAST_URL > 0:
-        for i in range(1,999999):
-            print(i)
-            if i in NUMBER_URL:
-                for url in URL_NUMBER:
-                    html_code += ("<p><a href=" + url + ">" + str(URL_NUMBER[url]) + "</a>" + " -- " +
-                                     "<a href=" + url + ">" + url + "</a></p>")
+        for url in URL_NUMBER:
+            html_code += ("<p><a href=" + url + ">" + str(URL_NUMBER[url]) + "</a>" + " -- " +
+                          "<a href=" + url + ">" + url + "</a></p>")
     else:
         html_code += "Not any URL shortened yet. What are you waiting for?"
     return(html_code)
@@ -100,7 +97,7 @@ class URL_shortener(webapp.webApp):
                 return("404 NOT Found", "<html><body><h1> Resource NOT Found</h1>" +
 	                                    "<p>Go to <a href=http://localhost:1234/> home page</a></h1>" +
                                         " to check URLs already shortened</p></body></html>")
-        elif parsedRequest[0] == "POST":
+        elif parsedRequest[0] == "POST" and len(parsedRequest[2]) > 0:
             checked = check_url(parsedRequest[2])
             added = add_url(checked, 0)         # 0 because URL not in .txt file yet
             return("200 OK", "<html><body><h1>Shortened URL: </h1>" +
