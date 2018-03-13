@@ -109,7 +109,9 @@ class URL_shortener(webapp.webApp):
                              "</body></html>")
         else:
             return("404 NOT Found", "<html><body><h1> Resource NOT Found</h1>" +
-                                    "<p>Usage: localhost:1234/</p></body></html>")
+                                    "<p>Usage: localhost:1234/number</p>" +
+                                    "<p><a href=http://localhost:1234/>Click to start page</a></h1></p>" +
+                                    "</body></html>")
 
 if __name__ == "__main__":
     global LAST_URL
