@@ -120,10 +120,10 @@ if __name__ == "__main__":
         file = open(FILE_PATH, "r")
         for line in file:
             try:
-                LAST_URL = int(line.split()[0]) - 1  # -1 because in add_url number is increased by 1
-                add_url(line.split()[1], 1)          # 1 Because URL already in .txt file
+                LAST_URL = int(line.split(",")[0]) - 1  # -1 because in add_url number is increased by 1
+                add_url(line.split(",")[1], 1)          # 1 Because URL already in .txt file
             except:
-                exit("init_urls.txt format not supported. Use number url")
+                exit("init_urls.txt format not supported. Use number,url")
     else:
         file = open(FILE_PATH, "w+")
         os.chmod(FILE_PATH, 0o777)

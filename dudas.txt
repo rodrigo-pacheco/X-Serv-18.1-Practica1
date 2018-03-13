@@ -3,11 +3,11 @@
 3) ¿Está bien el rango que he metido de detectar números? ¿Hay una forma mejor de hacerlo?
 4) ¿Por qué tarda tanto en la redirección de la página cuando añado una URL? También en Resource not found
 5) Si me piden localhost:1234/1/jamon/1574916 entiendo que tengo que servirle el contenido de /1 si lo hubiera
-6) ¿Hago bien la redirección?
+6) ¿Hago bien la redirección? ¿Para la redirección ¿Utilizo 301 ó 302?
 7) ¿El exit del save_in_file está bien?
 8) ¿Es necesario que se muestren en orden los enlaces?
 9) ¿Qué pasa si me dan el formulario vacío?
 10) En el número que paso tiene que habe run enlace a localhost:1234/numero o a la URL (www.as.com)?
 11) "Para determinar la URL acortada, utilizará un número entero secuencial, comenzando por 0, para cada nueva petición de acortamiento de una URL que se reciba." ¿La primera que se mete es 0 o es 1?
-12) Para la redirección ¿Utilizo 301 ó 302?
+12) Pasa algo si no paso el pep8 por la longitud de las líneas
 12+1) ¿Puedo usar collections.OrderedDict?
