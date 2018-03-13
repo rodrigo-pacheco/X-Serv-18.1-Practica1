@@ -10,3 +10,4 @@
 10) En el número que paso tiene que habe run enlace a localhost:1234/numero o a la URL (www.as.com)?
 11) "Para determinar la URL acortada, utilizará un número entero secuencial, comenzando por 0, para cada nueva petición de acortamiento de una URL que se reciba." ¿La primera que se mete es 0 o es 1?
 12) Para la redirección ¿Utilizo 301 ó 302?
+12+1) ¿Puedo usar collections.OrderedDict?

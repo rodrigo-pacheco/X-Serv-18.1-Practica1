@@ -10,11 +10,12 @@ SAT subject (Universidad Rey Juan Carlos)
 
 import webapp
 import os.path
+import collections
 from urllib.parse import unquote
 
 
-URL_NUMBER = {}
-NUMBER_URL = {}
+URL_NUMBER = collections.OrderedDict()
+NUMBER_URL = collections.OrderedDict()
 LAST_URL = 0
 FILE_PATH = "./init_urls.txt"
 
