@@ -1,14 +1,13 @@
 #!/usr/bin/python3
-"""
-Simple HTTP Server: shortenrs URLs
 
+a = """
+Simple HTTP Server: shortenrs URLs
+{}
 Rodrigo Pacheco Martinez-Atienza
 r.pachecom @ alumnos.urjc.es
-SAT subject (Universidad Rey Juan Carlos)
+SAT subject (Universidad Rey Juan Carlos){}
 """
-
-redirection = "<a href={}>{}</a>"
-init_page = "localhost:1234/"
+a.foramt({'', 'hyasdfasd'})
 
 import webapp
 import os.path
@@ -58,7 +57,12 @@ def check_url(url):
         return(url)
     else:
         return("http://" + url)
-
+                           "<head><meta http-equiv=\"refresh\" content=\"0;URL=" +
+        url = unquote(url)
+    if url.startswith("http://") or url.startswith("https://"):
+        return(url)
+    else:
+return("http://" + url)
 
 def add_url(url, already_added):
     global URL_NUMBER, NUMBER_URL, LAST_URL
@@ -95,9 +99,9 @@ class URL_shortener(webapp.webApp):
                         "</body></html>")
             elif its_kown_resource(parsedRequest[1]):
                 return("302 Redirect", "<html><body>" +
-                                       "<head><meta http-equiv=\"refresh\" content=\"0;URL=" +
-                                       NUMBER_URL[its_kown_resource(parsedRequest[1])] +
-                                       "\"/></head></body></html>")
+                                               "<head><meta http-equiv=\"refresh\" content=\"0;URL=" +
+                                               NUMBER_URL[its_kown_resource(parsedRequest[1])] +
+                                               "\"/></head></body></html>")
             else:
                 return("404 NOT Found", "<html><body><h1> Resource NOT Found</h1>" +
                                         "<p>Go to <a href=http://localhost:1234/> home page</a></h1>" +
@@ -113,7 +117,7 @@ class URL_shortener(webapp.webApp):
         else:
             return("404 NOT Found", "<html><body><h1> Resource NOT Found</h1>" +
                                     "<p>Usage: localhost:1234/number</p>" +
-                                    redirection.format({init_page, "Click to start page"}) +
+                                    "<p><a href='http://localhost:1234/'>Click to start page</a></h1></p>" +
                                     "</body></html>")
 
 if __name__ == "__main__":
@@ -122,12 +126,10 @@ if __name__ == "__main__":
         file = open(FILE_PATH, "r")
         for line in file:
             try:
-                LAST_URL = int(line.split(",")[0]) - 1  # -1 because in add_url number is increased by 1
-                add_url(line.split(",")[1], 1)          # 1 Because URL already in .txt file
-            except ValueError:
-                print("init_urls.csv format not supported." +
-                      "Could not parse line: " + line + "\r"
-                      "Usage: number,url\n")
+                LAST_URL = int(line.split()[0]) - 1  # -1 because in add_url number is increased by 1
+                add_url(line.split()[1], 1)          # 1 Because URL already in .txt file
+            # except IndentationError:
+            #     print("init_urls.csv format not supported.\n Dictionary was not loadad properly")
     else:
         file = open(FILE_PATH, "w+")
         os.chmod(FILE_PATH, 0o777)
